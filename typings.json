@@ -1,0 +1,24 @@
+{
+  "name": "github-searcher",
+  "globalDevDependencies": {
+    "diff": "registry:dt/diff#0.0.0+20160318080727",
+    "mocha": "registry:dt/mocha#2.2.5+20160619032855"
+  },
+  "dependencies": {
+    "lodash": "registry:npm/lodash#4.0.0+20160723033700"
+  },
+  "globalDependencies": {
+    "axios": "registry:dt/axios#0.9.1+20160629101425",
+    "material-ui": "registry:dt/material-ui#0.15.1+20160720000941",
+    "node": "registry:dt/node#6.0.0+20160805072842",
+    "query-string": "registry:dt/query-string#3.0.0+20160331065456",
+    "react": "registry:dt/react#0.14.0+20160805125551",
+    "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
+    "react-redux": "registry:dt/react-redux#4.4.0+20160724070751",
+    "react-router": "registry:dt/react-router#2.0.0+20160621215300",
+    "react-router-redux": "registry:dt/react-router-redux#4.0.0+20160724070902",
+    "react-router/history": "registry:dt/react-router/history#2.0.0+20160608102730",
+    "redux": "registry:dt/redux#3.5.2+20160703092728",
+    "redux-actions": "registry:dt/redux-actions#0.8.0+20160521154116"
+  }
+}
