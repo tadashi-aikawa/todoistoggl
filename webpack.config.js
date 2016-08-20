@@ -4,7 +4,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     context: __dirname,
-    target: "electron-renderer",
     entry: {
         js: "./src/app.js",
         html: "./src/index.html"
