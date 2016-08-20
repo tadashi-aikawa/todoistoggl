@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import {stringify} from 'query-string';
 import Sync from '../../models/api/todoist/Sync';
 
-const baseURL: string = 'https://todoist.com/API/v7';
+const baseURL: string = 'http://localhost:8080/API/v7/';
 
 const fetchSync = async(): Promise<Sync> => await Axios.post(
     '/sync',

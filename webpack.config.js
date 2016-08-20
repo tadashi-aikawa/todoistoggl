@@ -20,7 +20,7 @@ module.exports = {
         loaders: [
             {test: /\.html$/, loader: "file?name=[name].[ext]"},
             {test: /\.css$/, loaders: ['style', 'css']},
-            {test: /\.tsx?$/, exclude: /node_modules/, loaders: ["ts-loader"]},
+            {test: /\.tsx?$/, exclude: /node_modules/, loaders: ["react-hot", "ts-loader"]},
             {test: /\.js$/, exclude: /node_modules/, loaders: ["babel-loader"]},
             // bootstrap.cssの中に使うWebFontを（デフォルトで）base64エンコードされます
             {
@@ -43,6 +43,17 @@ module.exports = {
         ]),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-        })
-    ]
+        }),
+        new webpack.HotModuleReplacementPlugin()
+    ],
+    devServer: {
+        inline: true,
+        hot: true,
+        proxy: {
+            "/API/v7/*": {
+                target: "https://todoist.com",
+                secure: false
+            }
+        }
+    }
 };

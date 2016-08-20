@@ -13,7 +13,7 @@ class AppContents extends React.Component<AppContentsProps, any> {
     public render() {
         return (
             <div>
-                TodoisToggl2
+                TodoisToggl
                 {this.props.children}
             </div>
         );
