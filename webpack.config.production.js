@@ -1,48 +1,14 @@
-const webpack = require('webpack');
+const merge = require('webpack-merge');
+const common = require('./webpack.config.common');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-// TODO: Uglify
-module.exports = {
-    context: __dirname,
-    entry: {
-        js: "./src/app.js",
-        html: "./src/index.html"
-    },
-    output: {
-        path: __dirname + "/dist",
-        filename: "bundle.js"
-    },
-    module: {
-        preLoaders: [
-            {test: /\.tsx?$/, exclude: /node_modules/, loaders: ["tslint"]}
-        ],
-        loaders: [
-            {test: /\.html$/, loader: "file?name=[name].[ext]"},
-            {test: /\.css$/, loaders: ['style', 'css']},
-            {test: /\.tsx?$/, exclude: /node_modules/, loaders: ["ts-loader"]},
-            {test: /\.js$/, exclude: /node_modules/, loaders: ["babel-loader"]},
-            // bootstrap.cssの中に使うWebFontを（デフォルトで）base64エンコードされます
-            {
-                test: /\.(otf|eot|png|svg|ttf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: 'url-loader',
-                query: {
-                    mimetype: 'application/font-woff'
-                }
-            }
-        ]
-    },
-    resolve: {
-        extensions: ['', '.js', '.ts', '.tsx']
-    },
+module.exports = merge(common, {
     plugins: [
         new CleanWebpackPlugin(['dist']),
         new CopyWebpackPlugin([
-            {from: 'src/main.js', to: 'main.js'},
+            {from: 'main.js', to: 'main.js'},
             {from: 'package.json', to: 'package.json'}
-        ]),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-        })
+        ])
     ]
-};
+});

@@ -4,13 +4,11 @@
   "main": "main.js",
   "scripts": {
     "refresh": "npm prune && npm i && typings prune && typings i",
-    "build:dev": "cross-env NODE_ENV=development webpack-dev-server --progress --colors",
-    "build": "cross-env NODE_ENV=development webpack --progress --colors",
-    "build:pro": "webpack --config webpack.config.production.js",
-    "start:dev": "cross-env NODE_ENV=development electron electron",
-    "start": "cross-env NODE_ENV=development electron dist",
-    "start:pro": "electron dist",
-    "package": "npm run build:pro && electron-packager dist todoistoggl --platform=win32 --arch=x64 --overwrite",
+    "build:dev": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --progress --colors",
+    "build": "webpack --config webpack.config.production.js",
+    "start:dev": "cross-env NODE_ENV=development electron .",
+    "start": "electron dist",
+    "package": "electron-packager dist todoistoggl --platform=win32 --arch=x64 --overwrite",
     "test": "karma start --single-run",
     "test:watch": "karma start"
   },
@@ -71,6 +69,7 @@
     "typescript": "^1.8.10",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-server": "^1.14.1",
+    "webpack-merge": "^0.14.1"
   }
 }
