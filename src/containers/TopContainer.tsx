@@ -9,34 +9,49 @@ import {Dictionary} from 'lodash';
 import State from '../models/states/AppState';
 import {Task} from '../models/states/TaskState';
 import {fetchTask, willFetchTask} from '../actions/TodoistActionCreator';
+import {SettingState} from '../models/states/SettingState';
 
 
-interface TopContentProps {
+interface TopContentProps<T> {
     taskByKey: Dictionary<Task>;
     isLoading: boolean;
-    onClick: () => void;
+    onClick: (callbackPayload: T) => void;
+    /** dispatchで必要なstateの値を引き渡す枠 */
+    callbackPayload: T;
 }
 
-class TopContent extends React.Component<TopContentProps, any> {
+class TopContent<T> extends React.Component<TopContentProps<T>, any> {
+    constructor(props: TopContentProps<T>) {
+        super(props);
+        this.onClickFetchTask = this.onClickFetchTask.bind(this);
+    }
+
+    public onClickFetchTask() {
+        this.props.onClick(this.props.callbackPayload);
+    }
+
     public render() {
         const buttonText = this.props.isLoading ? 'isLoading' : 'get the tasks!';
         return (
             <div>
-                <RaisedButton label={buttonText} primary onClick={this.props.onClick} disabled={this.props.isLoading}/>
+                <RaisedButton label={buttonText}
+                              primary
+                              onClick={this.onClickFetchTask}
+                              disabled={this.props.isLoading}/>
                 <List>
-                {
-                    _(_.values<Task>(this.props.taskByKey))
-                        .orderBy(x => x.dueDate)
-                        .map(x => (
-                            <ListItem
-                                key={x.id}
-                                leftCheckbox={<Checkbox/>}
-                                primaryText={x.content}
-                                secondaryText={x.dueDate ? x.dueDate.toDateString() : ''}
-                            />
-                        ))
-                        .value()
-                }
+                    {
+                        _(_.values<Task>(this.props.taskByKey))
+                            .orderBy(x => x.dueDate)
+                            .map(x => (
+                                <ListItem
+                                    key={x.id}
+                                    leftCheckbox={<Checkbox/>}
+                                    primaryText={x.content}
+                                    secondaryText={x.dueDate ? x.dueDate.toDateString() : ''}
+                                />
+                            ))
+                            .value()
+                    }
                 </List>
             </div>
         );
@@ -45,13 +60,14 @@ class TopContent extends React.Component<TopContentProps, any> {
 
 const mapStateToProps = (state: State) => ({
     taskByKey: state.task.taskByKey,
-    isLoading: state.task.isLoading
+    isLoading: state.task.isLoading,
+    callbackPayload: state.setting
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onClick: () => {
+    onClick: (callbackPayload: SettingState) => {
         dispatch(willFetchTask());
-        dispatch(fetchTask());
+        dispatch(fetchTask(callbackPayload));
     }
 });
 

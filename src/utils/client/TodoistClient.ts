@@ -7,10 +7,10 @@ import Sync from '../../models/api/todoist/Sync';
 const baseURL = process.env.NODE_ENV === 'development' ?
     'http://localhost:8080/API/v7/' : 'https://todoist.com/API/v7/';
 
-const fetchSync = async(): Promise<Sync> => await Axios.post(
+const fetchSync = async(token: string): Promise<Sync> => await Axios.post(
     '/sync',
     stringify({
-        token: 'xxx',
+        token,
         sync_token: '*',
         resource_types: '["items"]'
     }),

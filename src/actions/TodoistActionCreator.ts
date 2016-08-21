@@ -6,6 +6,7 @@ import {Task} from '../models/states/TaskState';
 import * as TodoistClient from '../utils/client/TodoistClient';
 import * as _ from 'lodash';
 import {Dictionary} from 'lodash';
+import {SettingState} from '../models/states/SettingState';
 
 const toTaskByKey = (items: Item[]): Dictionary<Task> => {
     return _(items)
@@ -24,11 +25,11 @@ const willFetchTask: () => Action<void> =
         ActionType.WILL_FETCH_TASK
     );
 
-const fetchTask: () => Action<Promise<Sync>> =
+const fetchTask: (setting: SettingState) => Action<Promise<Sync>> =
     createAction(
         ActionType.FETCH_TASK,
-        async () => {
-            const sync = await TodoistClient.fetchSync();
+        async (setting: SettingState) => {
+            const sync = await TodoistClient.fetchSync(setting.todoist.token);
             return toTaskByKey(sync.items);
         }
     );
