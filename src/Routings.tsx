@@ -6,6 +6,6 @@ import {IndexRoute, Route} from 'react-router';
 
 export default (
     <Route path="/" component={AppContainer}>
-        <Route path="*/index.html" component={TopContainer}/>
+        <Route path="*index.html" component={TopContainer}/>
     </Route>
 );

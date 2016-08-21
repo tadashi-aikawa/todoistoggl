@@ -10,12 +10,11 @@ function createWindow() {
     // Create the browser window.
     win = new BrowserWindow({width: 1200, height: 900});
 
-    // and load the index.html of the app.
-    win.loadURL(`file://${__dirname}/index.html`);
-
-    // Open the DevTools.
     if (process.env.NODE_ENV === 'development') {
+        win.loadURL("http://localhost:8080/index.html");
         win.openDevTools();
+    } else {
+        win.loadURL(`file://${__dirname}/index.html`);
     }
 
     // Emitted when the window is closed.
