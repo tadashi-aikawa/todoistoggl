@@ -1,14 +1,16 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {AppBar, IconButton} from 'material-ui';
+import {AppBar, IconButton, CircularProgress} from 'material-ui';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
-import {Dialog} from 'material-ui';
-import {FlatButton} from 'material-ui';
 import SettingDialogContainer from './SettingDialogContainer';
+import {loadSetting} from '../actions/SettingActionCreator';
+import AppState from '../models/states/AppState';
+
 
 interface AppContentsProps {
-    open: boolean;
+    doneInitLoading: boolean;
     children: any;
+    onCunstructor: () => void;
 }
 
 interface AppContentsState {
@@ -27,6 +29,7 @@ class AppContents extends React.Component<AppContentsProps, AppContentsState> {
         };
         this.onCloseSettingsDialog = this.onCloseSettingsDialog.bind(this);
         this.onClickSettings = this.onClickSettings.bind(this);
+        this.props.onCunstructor();
     }
 
     public onClickSettings() {
@@ -42,6 +45,10 @@ class AppContents extends React.Component<AppContentsProps, AppContentsState> {
     }
 
     public render() {
+        if (!this.props.doneInitLoading) {
+            return <CircularProgress size={5} />;
+        }
+
         return (
             <div>
                 <AppBar
@@ -59,10 +66,19 @@ class AppContents extends React.Component<AppContentsProps, AppContentsState> {
     }
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state: AppState) => ({
+    doneInitLoading: state.setting.doneInitLoading
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    onCunstructor: () => {
+        dispatch(loadSetting());
+    }
+});
 
 const AppContainer = connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(AppContents);
 
 export default AppContainer;

@@ -9,6 +9,7 @@
   },
   "globalDependencies": {
     "axios": "registry:dt/axios#0.9.1+20160629101425",
+    "electron-json-storage": "registry:dt/electron-json-storage#0.0.0+20160324000215",
     "material-ui": "registry:dt/material-ui#0.15.1+20160720000941",
     "node": "registry:dt/node#6.0.0+20160805072842",
     "query-string": "registry:dt/query-string#3.0.0+20160331065456",

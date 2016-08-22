@@ -1,4 +1,6 @@
 interface SettingState {
+    /** 初期読込が完了しているか */
+    doneInitLoading: boolean;
     todoist: TodoistSetting;
 }
 

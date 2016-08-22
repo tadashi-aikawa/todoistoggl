@@ -38,5 +38,18 @@ module.exports = {
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         }),
         require('webpack-fail-plugin')
+    ],
+    externals: [
+        (function () {
+            var IGNORES = [
+                'electron', 'fs'
+            ];
+            return function (context, request, callback) {
+                if (IGNORES.indexOf(request) >= 0) {
+                    return callback(null, "require('" + request + "')");
+                }
+                return callback();
+            };
+        })()
     ]
 };

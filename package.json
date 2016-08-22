@@ -23,6 +23,7 @@
   "homepage": "https://github.com/tadashi-aikawa/todoistoggl#readme",
   "dependencies": {
     "axios": "^0.13.1",
+    "electron-json-storage": "^2.0.0",
     "electron-packager": "^7.5.1",
     "lodash": "^4.13.1",
     "material-ui": "^0.15.3",
