@@ -4,8 +4,7 @@ import Sync from '../../models/api/todoist/Sync';
 
 // Proxyを経由するため開発中はURLが異なる
 // デバッグでelectron-dev-serverを使う際にCORSに引っかかるため
-const baseURL = process.env.NODE_ENV === 'development' ?
-    'http://localhost:8080/API/v7/' : 'https://todoist.com/API/v7/';
+const baseURL = 'https://todoist.com/API/v7/';
 
 const fetchSync = async(token: string): Promise<Sync> => await Axios.post(
     '/sync',

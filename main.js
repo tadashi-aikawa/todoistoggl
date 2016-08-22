@@ -5,16 +5,25 @@ const {BrowserWindow} = electron;
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
+const isDebug = process.env.NODE_ENV === 'development';
 
 function createWindow() {
     // Create the browser window.
-    win = new BrowserWindow({width: 1200, height: 900});
+    win = new BrowserWindow({
+        width: 1200,
+        height: 900,
+        webPreferences: {
+            webSecurity: !isDebug
+        }
+    });
 
-    if (process.env.NODE_ENV === 'development') {
-        win.loadURL("http://localhost:8080/index.html");
+    win.loadURL(isDebug ?
+        "http://localhost:8080/index.html" :
+        `file://${__dirname}/index.html`
+    );
+
+    if (isDebug) {
         win.openDevTools();
-    } else {
-        win.loadURL(`file://${__dirname}/index.html`);
     }
 
     // Emitted when the window is closed.
